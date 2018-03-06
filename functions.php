@@ -106,6 +106,8 @@ function aliberty_include_scripts() {
 	wp_deregister_script('jquery');
 	wp_enqueue_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js', array(), null, true);
 	wp_enqueue_script('bootstrapJS', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', array(), null, true);
+	wp_enqueue_script('isotope', get_bloginfo('template_directory') . '/js/isotope.min.js', array(), null, true);
+	wp_enqueue_script('isotopeF', get_bloginfo('template_directory') . '/js/isotope-functions.min.js', array(), null, true);
 	wp_enqueue_script('mainJS', get_bloginfo('template_directory') . '/js/functions.min.js', array(), null, true);
 
 }

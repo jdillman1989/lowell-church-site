@@ -24,6 +24,40 @@
 	<![endif]-->
 
 	<?php wp_head(); ?>
+
+	<style>
+		.gform_wrapper .gform_body ul.gform_fields{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
+		.gform_wrapper .gform_body ul.gform_fields li.gfield{
+			display: block;
+			width: 100%;
+		}
+
+		.gform_wrapper .gform_body ul.gform_fields li.gfield.form-field-half{
+			width: 49%;
+		}
+
+		.gform_wrapper .gform_body ul.gform_fields li.gfield.form-radio-inline ul.gfield_radio{
+			display: flex;
+			flex-wrap: wrap;
+			align-items: flex-start;
+			justify-content: flex-start;
+		}
+
+		.gform_wrapper .gform_body ul.gform_fields li.gfield.form-radio-inline ul.gfield_radio li{
+			display: inline-block;
+			width: auto;
+			margin-right: 30px;
+		}
+	
+		.submit-right .gform_footer{
+			text-align: right;
+		}
+	</style>
 </head>
 <body>
 <?php
