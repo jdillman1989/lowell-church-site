@@ -1,98 +1,69 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
-<head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?php bloginfo('name'); ?> | <?php is_front_page() ? bloginfo('description') : wp_title(); ?></title>
+    <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.ico" type="image/x-icon">
+    <?php wp_head(); ?>
+  </head>
+  <body>
 
-	<title><?php wp_title() ?></title>
-	
-	<link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/favicon.ico" type="image/x-icon">
-	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
-	<link rel="stylesheet" href="https://use.typekit.net/kif0skq.css">
-
-	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<script type="text/javascript">
-	document.createElement('header');
-	document.createElement('nav');
-	document.createElement('aside');
-	document.createElement('article');
-	document.createElement('section');
-	document.createElement('footer');
-	</script>
-	<![endif]-->
-
-	<?php wp_head(); ?>
-
-	<style>
-		.gform_wrapper .gform_body ul.gform_fields{
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: space-between;
-		}
-
-		.gform_wrapper .gform_body ul.gform_fields li.gfield{
-			display: block;
-			width: 100%;
-		}
-
-		.gform_wrapper .gform_body ul.gform_fields li.gfield.form-field-half{
-			width: 49%;
-		}
-
-		.gform_wrapper .gform_body ul.gform_fields li.gfield.form-radio-inline ul.gfield_radio{
-			display: flex;
-			flex-wrap: wrap;
-			align-items: flex-start;
-			justify-content: flex-start;
-		}
-
-		.gform_wrapper .gform_body ul.gform_fields li.gfield.form-radio-inline ul.gfield_radio li{
-			display: inline-block;
-			width: auto;
-			margin-right: 30px;
-		}
-	
-		.submit-right .gform_footer{
-			text-align: right;
-		}
-	</style>
-</head>
-<body>
 <?php
-$nav_main = wp_get_nav_menu_items('Main');
-$state_archive = query_posts(array(
-	'post_type' => 'page',
-	'meta_key' => '_wp_page_template',
-	'meta_value' => 'page-archive.php'
-));
-
-$state_archive_url = get_page_link($state_archive[0]->ID);
-$site = get_site_url();
+  $slugger = $post->post_name;
+  $slugger = ($post->post_type == 'state') ?$post->post_type:$slugger;  //if the post_type is state, use that, otherwise, use the slug
 ?>
-<header id="site-header">
-	<div class="container">
-		<button class="skip" tabindex="0">Skip to main content</button>
+<header class="site-header site-header-<?php echo $slugger; ?>">
+  <nav class="site-navigation navbar">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle Navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+          <?php bloginfo('name'); ?>
+        </a>
+      </div>
 
-		<a class="logo" href="<?php echo $site; ?>" title="<?php bloginfo('name'); ?>"></a>
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <a class="sr-only" href="#main">Skip Navigation</a>
+        <?php
+          $args = array(
+            'theme_location'  => 'primary',
+            'container'       => false,
+            'items_wrap'      => '<ul class="nav nav-pills" id="%1$s" role="navigation">%3$s</ul>'
+          );
+          wp_nav_menu($args);
+        ?>
+      </div>
+    </div><!-- class="container" -->
+  </nav>
+  <?php
+  if(is_front_page()) { //if this is the home page ?>
+    <div class="home-splash">
+      <div class="container">
+      	<div class="row">
+          <div class="col-sm-7 col-sm-offset-5">
+            <p class="h1">Friendly and proactive services for workers’ compensation claims</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php } ?>
+  <?php
+    echo get_query_var( 'cat' );
 
-		<button class="btn navbar-toggle" type="button" data-toggle="collapse" data-target="#primary-nav">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</button>
+  if(true){ ?>
 
-		<nav id="primary-nav" class="navbar-collapse collapse">     
-			<ul>
-				<?php
-				foreach ($nav_main as $item) {
-					echo '<li><a href="'.$item->url.'">'.$item->title.'</a></li>';
-				}
-				?>
-				<li class="highlighted"><a href="<?php echo $state_archive_url; ?>">File A Claim</a></li>
-				<li class="login"><a href="<?php echo wp_login_url(); ?> ">Login</a></li>
-			</ul>
-		</nav>
-	</div>
+  <?php } ?>
+  <div class="container">
+  	<div class="row">
+      <div class="col-lg-10 col-lg-offset-1">
+        <h1 class="h1"><?php the_title(); ?></h1>
+      </div>
+    </div>
+  </div>
 </header>
