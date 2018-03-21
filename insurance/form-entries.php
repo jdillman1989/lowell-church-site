@@ -5,13 +5,13 @@ class PDF extends FPDF{
 	// Page footer
 	function Footer(){
 	    // Position at 1.5 cm from bottom
-	    $this->SetY(-30);
-	    $this->SetFont('Times','',12);
+	    $this->SetY(-25);
+	    $this->SetFont('Times','',10);
 		$this->SetFillColor(255,255,255);
 		$this->SetTextColor(0,0,0);
-	    $this->Cell(0,7,'OnPoint Underwriting',0,1,'C');
-	    $this->Cell(0,7,'8390 E. Crescent Parkway, Suite 200 * Greenwood Village, CO 80111',0,1,'C');
-	    $this->Cell(0,7,'Phone: (866) 831-5464 * Fax: (303) 388-5585',0,1,'C');
+	    $this->Cell(0,5,'OnPoint Underwriting',0,1,'C');
+	    $this->Cell(0,5,'8390 E. Crescent Parkway, Suite 200 * Greenwood Village, CO 80111',0,1,'C');
+	    $this->Cell(0,5,'Phone: (866) 831-5464 * Fax: (303) 388-5585',0,1,'C');
 	}
 }
 
@@ -110,21 +110,125 @@ function gform_create_pdf($entry, $calculated_values){
 
 	$pdf = new PDF();
 	$pdf->AddPage();
-	$pdf->SetFont('Times','',12);
+	$pdf->SetFont('Times','B',15);
 
-	$pdf->Image(get_template_directory().'/insurance/logo.png',10,6,45); // src, corner-x, corner-y, width
-	$pdf->Ln(20);
+	$pdf->Image(get_template_directory().'/insurance/logo.png',10,6,50); // src, corner-x, corner-y, width
+	$pdf->Ln(13);
 
 	$pdf->Cell(0,10,'Excess Liability Quote Proposal',0,0,'C');
-	$pdf->Ln(20);  // new line
+	$pdf->Ln(10);
 
-	$pdf->Cell(50,10,'Quote Date:	'.date('F j, Y'),0,0,'L');
+	$pdf->SetFont('Times','',10);
+	$pdf->Cell(50,5,'Quote Date:	'.date('F j, Y'),0,0,'L');
 	$pdf->Cell(50);
-	$pdf->Cell(0,10,'Proposal For:',0,1,'L');
+	$pdf->Cell(0,5,'Proposal For:	',0,1,'L');
 
+	$pdf->Cell(50,5,'Risk Name:	',0,0,'L');
+	$pdf->Cell(50);
+	$pdf->Cell(0,5,'Producer:	',0,1,'L');
+
+	$pdf->Cell(50,5,'Risk Address:',0,0,'L');
+	$pdf->Cell(50);
+	$pdf->Cell(0,5,'Email:	',0,1,'L');
+
+	$pdf->Cell(50,5,$entry[8].' '.$entry[9].' '.$entry[10].' '.$entry[11].' '.$entry[24],0,0,'L');
+	$pdf->Cell(50);
+	$pdf->Cell(0,5,'Prepared By:	OnPoint Underwriting',0,1,'L');
+
+	$pdf->Cell(50,5,'Proposed Policy Period:',0,0,'L');
+	$pdf->Cell(50);
+	$pdf->Cell(0,5,'Underwriter:	Richard Poling',0,1,'L');
+
+	$pdf->Cell(0,5,'(12:01 a.m. Standard Time)',0,1,'L');
+	$pdf->Ln(3);
+
+	$pdf->Cell(0,5,'Carrier: Golden Insurance Company, RRG',0,1,'L');
+
+	$pdf->Cell(0,5,'AM Best Rating: B',0,1,'L');
+	$pdf->Ln(3);
+
+	$pdf->Cell(0,5,'Thank you for the opportunity to provide you with a quote. This quote is based on the underwriting and rating',0,1,'L');
+	$pdf->Cell(0,5,'information provided to date and may be subject to additional rating, pricing or underwriting considerations.',0,1,'L');
+	$pdf->Ln(3);
+
+	$pdf->SetFont('Times','B',10);
 	$pdf->SetFillColor(218,166,0);
 	$pdf->SetTextColor(255,255,255);
-	$pdf->Cell(0,10,'Coverage Information',0,1,'L',true);
+	$pdf->Cell(0,7,'Coverage Information',0,1,'L',true);
+	$pdf->Ln(3);
+	$pdf->SetFont('Times','',10);
+	$pdf->SetTextColor(0,0,0);
+
+	$pdf->Cell(20,5,'Excess Liability',0,0,'L');
+	$pdf->Cell(12);
+	$pdf->Cell(20,5,'Limits:',0,0,'L');
+	$pdf->Cell(2);
+	$pdf->Cell(20,5,'$',0,0,'L');
+	$pdf->Cell(10);
+	$pdf->Cell(0,5,'General Aggregate Limits (included Within Products-Completed Operations)',0,1,'L');
+
+	$pdf->Cell(54);
+	$pdf->Cell(20,5,'$',0,0,'L');
+	$pdf->Cell(10);
+	$pdf->Cell(0,5,'Products-Completed Operation Aggregate Limit',0,1,'L');
+
+	$pdf->Cell(54);
+	$pdf->Cell(20,5,'$',0,0,'L');
+	$pdf->Cell(10);
+	$pdf->Cell(0,5,'Each Occurrence Limit',0,1,'L');
+
+	$pdf->Cell(54);
+	$pdf->Cell(20,5,'N/A',0,0,'L');
+	$pdf->Cell(10);
+	$pdf->Cell(0,5,'Bodily Injury by Accident',0,1,'L');
+
+	$pdf->Cell(54);
+	$pdf->Cell(20,5,'N/A',0,0,'L');
+	$pdf->Cell(10);
+	$pdf->Cell(0,5,'Bodily Injury by Disease',0,1,'L');
+
+	$pdf->Cell(32);
+	$pdf->Cell(20,5,'EXCESS OF',0,0,'L');
+	$pdf->Cell(8);
+	$pdf->Cell(20,5,'Underlying with',0,1,'L');
+	$pdf->Ln(3);
+
+	$pdf->SetFont('Times','B',10);
+	$pdf->SetFillColor(218,166,0);
+	$pdf->SetTextColor(255,255,255);
+	$pdf->Cell(0,7,'Rating Information',0,1,'L',true);
+	$pdf->Ln(3);
+	$pdf->SetFont('Times','',10);
+	$pdf->SetTextColor(0,0,0);
+
+	$pdf->SetFont('Times','B',10);
+	$pdf->Cell(30,5,'Rating Basis:',0,0,'L');
+	$pdf->SetFont('Times','',10);
+	$pdf->Cell(24);
+	$pdf->Cell(20,5,'Underlying Premium',0,1,'L');
+
+	$pdf->SetFont('Times','B',10);
+	$pdf->Cell(30,5,'Coverage Type:',0,0,'L');
+	$pdf->SetFont('Times','',10);
+	$pdf->Cell(24);
+	$pdf->Cell(20,5,'Excess Liability',0,0,'L');
+	$pdf->Cell(10);
+	$pdf->SetFont('Times','B',10);
+	$pdf->Cell(20,5,'Policy Type:',0,0,'L');
+	$pdf->Cell(22);
+	$pdf->SetFont('Times','',10);
+	$pdf->Cell(0,5,'Claims Made',0,1,'L');
+
+	$pdf->SetFont('Times','B',10);
+	$pdf->Cell(30,5,'Deductible per occurrence:',0,0,'L');
+	$pdf->SetFont('Times','',10);
+	$pdf->Cell(24);
+	$pdf->Cell(20,5,'$',0,0,'L');
+	$pdf->Cell(10);
+	$pdf->SetFont('Times','B',10);
+	$pdf->Cell(0,5,'Retroactive Date:',0,1,'L');
+
+
 	$pdf->Output('F', get_template_directory().'/insurance/pdfs/insurance-'.$entry['id'].'.pdf');
 }
 
