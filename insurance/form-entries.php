@@ -108,17 +108,17 @@ function gform_create_pdf($entry, $calculated_values){
 	// fill: Indicates if the cell background must be painted (true) or transparent (false).
 	// link: URL or identifier returned by AddLink().
 
-	$lh = 4; // line height
+	$lh = 5; // line height
 
 	$pdf = new PDF();
 	$pdf->AddPage();
 	$pdf->SetFont('Times','B',15);
 
 	$pdf->Image(get_template_directory().'/insurance/logo.png',10,6,50); // src, corner-x, corner-y, width
-	$pdf->Ln(13);
+	$pdf->Ln(15);
 
 	$pdf->Cell(0,10,'Excess Liability Quote Proposal',0,0,'C');
-	$pdf->Ln(10);
+	$pdf->Ln(15);
 
 	$pdf->SetFont('Times','',10);
 	$pdf->Cell(50,$lh,'Quote Date:	'.date('F j, Y'),0,0,'L');
@@ -276,11 +276,11 @@ function gform_create_pdf($entry, $calculated_values){
 	$pdf->SetTextColor(0,0,0);
 
 	$pdf->Cell(4);
-	$pdf->Cell(0,$lh,'• PAYMENT OF 50% OF PREMIUM, SUBSCRIPTION FEE, AND TAXES IS DUE IN 30 DAYS',0,1,'L');
+	$pdf->Cell(0,$lh,iconv('UTF-8', 'windows-1252', '•   PAYMENT OF 50% OF PREMIUM, SUBSCRIPTION FEE, AND TAXES IS DUE IN 30 DAYS'),0,1,'L');
 
 	$pdf->SetFont('Times','',10);
 	$pdf->Cell(4);
-	$pdf->Cell(0,$lh,'• The remaining 50% is due in 60 days.',0,1,'L');
+	$pdf->Cell(0,$lh,iconv('UTF-8', 'windows-1252', '•   The remaining 50% is due in 60 days.'),0,1,'L');
 
 	$pdf->AddPage();
 
@@ -292,6 +292,82 @@ function gform_create_pdf($entry, $calculated_values){
 	$pdf->Cell(0,7,'CONDITIONS / EXCLUSIONS',0,1,'L',true);
 	$pdf->Ln(5);
 	$pdf->SetTextColor(0,0,0);
+
+	$pdf->Cell(0,$lh,'Policy Conditions',0,1,'L');
+
+	$pdf->Cell(32);
+	$pdf->Cell(0,$lh,'Prior acts/losses are excluded',0,1,'L');
+
+	$pdf->Cell(32);
+	$pdf->Cell(0,$lh,'Minimum earned Premium 100%',0,1,'L');
+
+	$pdf->Cell(32);
+	$pdf->Cell(0,$lh,'Quote expires on at 12:01 am Standard Time',0,1,'L');
+
+	$pdf->Cell(32);
+	$pdf->Cell(0,$lh,'Commission 15%',0,1,'L');
+
+	$pdf->Cell(32);
+	$pdf->Cell(0,$lh,'Defence Inside',0,1,'L');
+
+	$pdf->Cell(32);
+	$pdf->Cell(0,$lh,'Auditable',0,1,'L');
+
+	$pdf->Cell(32);
+	$pdf->Cell(0,$lh,'Extended Reproting Period:',0,1,'L');
+
+	$pdf->Cell(64);
+	$pdf->Cell(0,$lh,'1 Year at 200% annual premium',0,1,'L');
+	$pdf->Ln(5);
+
+	$pdf->SetFont('Times','B',10);
+	$pdf->SetFillColor(218,166,0);
+	$pdf->SetTextColor(255,255,255);
+	$pdf->Cell(0,7,'General Conditions',0,1,'L',true);
+	$pdf->Ln(5);
+	$pdf->SetFont('Times','',9);
+	$pdf->SetTextColor(0,0,0);
+
+	$pdf->Cell(4);
+	$pdf->Cell(0,$lh - 1,iconv('UTF-8', 'windows-1252', '•   This is a proposal for insurance. It is not an insurance policy. Only the policy itself provides coverage. If bound, the policy will be an'),0,1,'L');
+
+	$pdf->Cell(4);
+	$pdf->Cell(0,$lh - 1,'     occurrence form policy.',0,1,'L');
+
+	$pdf->Cell(4);
+	$pdf->Cell(0,$lh - 1,iconv('UTF-8', 'windows-1252', '•   All coverage’s are subject to the terms, conditions and exclusion of the policy. Policy forms are avalible upon request.'),0,1,'L');
+
+	$pdf->Cell(4);
+	$pdf->Cell(0,$lh - 1,iconv('UTF-8', 'windows-1252', '•   It is incumbent upon you to ascertain the accuracy of the quote, and to review with the insured the terms and conditions of the quote'),0,1,'L');
+
+	$pdf->Cell(4);
+	$pdf->Cell(0,$lh - 1,'     carefully, as the coverage, terms and conditions may be different than requested.',0,1,'L');
+
+	$pdf->Cell(4);
+	$pdf->Cell(0,$lh - 1,iconv('UTF-8', 'windows-1252', '•   No backdating of coverage is allowed. If the request to bind coverage is not received on or before at 12:01 a.m. Standard'),0,1,'L');
+
+	$pdf->Cell(4);
+	$pdf->Cell(0,$lh - 1,'     Time, this quote will be considered expired.',0,1,'L');
+
+	$pdf->Cell(4);
+	$pdf->Cell(0,$lh - 1,iconv('UTF-8', 'windows-1252', '•   A risk retention group may not be subject to all the insurance laws and regulations of your State. Under Federal Law state insurance'),0,1,'L');
+
+	$pdf->Cell(4);
+	$pdf->Cell(0,$lh - 1,'     guaranty funding cannot be used for the risk retention group.',0,1,'L');
+	$pdf->Ln(5);
+
+	$pdf->SetFont('Times','B',10);
+	$pdf->SetFillColor(218,166,0);
+	$pdf->SetTextColor(255,255,255);
+	$pdf->Cell(0,7,'Forms/Endorsement Schedule',0,1,'L',true);
+	$pdf->Ln(5);
+	$pdf->SetFont('Times','',9);
+	$pdf->SetTextColor(0,0,0);
+
+
+
+
+
 
 	$pdf->Output('F', get_template_directory().'/insurance/pdfs/insurance-'.$entry['id'].'.pdf');
 }
