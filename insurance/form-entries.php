@@ -108,6 +108,8 @@ function gform_create_pdf($entry, $calculated_values){
 	// fill: Indicates if the cell background must be painted (true) or transparent (false).
 	// link: URL or identifier returned by AddLink().
 
+	$lh = 4; // line height
+
 	$pdf = new PDF();
 	$pdf->AddPage();
 	$pdf->SetFont('Times','B',15);
@@ -119,115 +121,177 @@ function gform_create_pdf($entry, $calculated_values){
 	$pdf->Ln(10);
 
 	$pdf->SetFont('Times','',10);
-	$pdf->Cell(50,5,'Quote Date:	'.date('F j, Y'),0,0,'L');
+	$pdf->Cell(50,$lh,'Quote Date:	'.date('F j, Y'),0,0,'L');
 	$pdf->Cell(50);
-	$pdf->Cell(0,5,'Proposal For:	',0,1,'L');
+	$pdf->Cell(0,$lh,'Proposal For:	',0,1,'L');
 
-	$pdf->Cell(50,5,'Risk Name:	',0,0,'L');
+	$pdf->Cell(50,$lh,'Risk Name:	',0,0,'L');
 	$pdf->Cell(50);
-	$pdf->Cell(0,5,'Producer:	',0,1,'L');
+	$pdf->Cell(0,$lh,'Producer:	',0,1,'L');
 
-	$pdf->Cell(50,5,'Risk Address:',0,0,'L');
+	$pdf->Cell(50,$lh,'Risk Address:',0,0,'L');
 	$pdf->Cell(50);
-	$pdf->Cell(0,5,'Email:	',0,1,'L');
+	$pdf->Cell(0,$lh,'Email:	',0,1,'L');
 
-	$pdf->Cell(50,5,$entry[8].' '.$entry[9].' '.$entry[10].' '.$entry[11].' '.$entry[24],0,0,'L');
+	$pdf->Cell(50,$lh,$entry[8].' '.$entry[9].' '.$entry[10].' '.$entry[11].' '.$entry[24],0,0,'L');
 	$pdf->Cell(50);
-	$pdf->Cell(0,5,'Prepared By:	OnPoint Underwriting',0,1,'L');
+	$pdf->Cell(0,$lh,'Prepared By:	OnPoint Underwriting',0,1,'L');
 
-	$pdf->Cell(50,5,'Proposed Policy Period:',0,0,'L');
+	$pdf->Cell(50,$lh,'Proposed Policy Period:',0,0,'L');
 	$pdf->Cell(50);
-	$pdf->Cell(0,5,'Underwriter:	Richard Poling',0,1,'L');
+	$pdf->Cell(0,$lh,'Underwriter:	Richard Poling',0,1,'L');
 
-	$pdf->Cell(0,5,'(12:01 a.m. Standard Time)',0,1,'L');
-	$pdf->Ln(3);
+	$pdf->Cell(0,$lh,'(12:01 a.m. Standard Time)',0,1,'L');
+	$pdf->Ln(5);
 
-	$pdf->Cell(0,5,'Carrier: Golden Insurance Company, RRG',0,1,'L');
+	$pdf->Cell(0,$lh,'Carrier: Golden Insurance Company, RRG',0,1,'L');
 
-	$pdf->Cell(0,5,'AM Best Rating: B',0,1,'L');
-	$pdf->Ln(3);
+	$pdf->Cell(0,$lh,'AM Best Rating: B',0,1,'L');
+	$pdf->Ln(5);
 
-	$pdf->Cell(0,5,'Thank you for the opportunity to provide you with a quote. This quote is based on the underwriting and rating',0,1,'L');
-	$pdf->Cell(0,5,'information provided to date and may be subject to additional rating, pricing or underwriting considerations.',0,1,'L');
-	$pdf->Ln(3);
+	$pdf->Cell(0,$lh,'Thank you for the opportunity to provide you with a quote. This quote is based on the underwriting and rating',0,1,'L');
+	$pdf->Cell(0,$lh,'information provided to date and may be subject to additional rating, pricing or underwriting considerations.',0,1,'L');
+	$pdf->Ln(5);
 
 	$pdf->SetFont('Times','B',10);
 	$pdf->SetFillColor(218,166,0);
 	$pdf->SetTextColor(255,255,255);
 	$pdf->Cell(0,7,'Coverage Information',0,1,'L',true);
-	$pdf->Ln(3);
+	$pdf->Ln(5);
 	$pdf->SetFont('Times','',10);
 	$pdf->SetTextColor(0,0,0);
 
-	$pdf->Cell(20,5,'Excess Liability',0,0,'L');
+	$pdf->Cell(20,$lh,'Excess Liability',0,0,'L');
 	$pdf->Cell(12);
-	$pdf->Cell(20,5,'Limits:',0,0,'L');
+	$pdf->Cell(20,$lh,'Limits:',0,0,'L');
 	$pdf->Cell(2);
-	$pdf->Cell(20,5,'$',0,0,'L');
+	$pdf->Cell(20,$lh,'$',0,0,'L');
 	$pdf->Cell(10);
-	$pdf->Cell(0,5,'General Aggregate Limits (included Within Products-Completed Operations)',0,1,'L');
+	$pdf->Cell(0,$lh,'General Aggregate Limits (included Within Products-Completed Operations)',0,1,'L');
 
 	$pdf->Cell(54);
-	$pdf->Cell(20,5,'$',0,0,'L');
+	$pdf->Cell(20,$lh,'$',0,0,'L');
 	$pdf->Cell(10);
-	$pdf->Cell(0,5,'Products-Completed Operation Aggregate Limit',0,1,'L');
+	$pdf->Cell(0,$lh,'Products-Completed Operation Aggregate Limit',0,1,'L');
 
 	$pdf->Cell(54);
-	$pdf->Cell(20,5,'$',0,0,'L');
+	$pdf->Cell(20,$lh,'$',0,0,'L');
 	$pdf->Cell(10);
-	$pdf->Cell(0,5,'Each Occurrence Limit',0,1,'L');
+	$pdf->Cell(0,$lh,'Each Occurrence Limit',0,1,'L');
 
 	$pdf->Cell(54);
-	$pdf->Cell(20,5,'N/A',0,0,'L');
+	$pdf->Cell(20,$lh,'N/A',0,0,'L');
 	$pdf->Cell(10);
-	$pdf->Cell(0,5,'Bodily Injury by Accident',0,1,'L');
+	$pdf->Cell(0,$lh,'Bodily Injury by Accident',0,1,'L');
 
 	$pdf->Cell(54);
-	$pdf->Cell(20,5,'N/A',0,0,'L');
+	$pdf->Cell(20,$lh,'N/A',0,0,'L');
 	$pdf->Cell(10);
-	$pdf->Cell(0,5,'Bodily Injury by Disease',0,1,'L');
+	$pdf->Cell(0,$lh,'Bodily Injury by Disease',0,1,'L');
 
 	$pdf->Cell(32);
-	$pdf->Cell(20,5,'EXCESS OF',0,0,'L');
+	$pdf->Cell(20,$lh,'EXCESS OF',0,0,'L');
 	$pdf->Cell(8);
-	$pdf->Cell(20,5,'Underlying with',0,1,'L');
-	$pdf->Ln(3);
+	$pdf->Cell(20,$lh,'Underlying with',0,1,'L');
+	$pdf->Ln(5);
 
 	$pdf->SetFont('Times','B',10);
 	$pdf->SetFillColor(218,166,0);
 	$pdf->SetTextColor(255,255,255);
 	$pdf->Cell(0,7,'Rating Information',0,1,'L',true);
-	$pdf->Ln(3);
-	$pdf->SetFont('Times','',10);
+	$pdf->Ln(5);
 	$pdf->SetTextColor(0,0,0);
 
 	$pdf->SetFont('Times','B',10);
-	$pdf->Cell(30,5,'Rating Basis:',0,0,'L');
+	$pdf->Cell(30,$lh,'Rating Basis:',0,0,'L');
 	$pdf->SetFont('Times','',10);
 	$pdf->Cell(24);
-	$pdf->Cell(20,5,'Underlying Premium',0,1,'L');
+	$pdf->Cell(20,$lh,'Underlying Premium',0,1,'L');
 
 	$pdf->SetFont('Times','B',10);
-	$pdf->Cell(30,5,'Coverage Type:',0,0,'L');
+	$pdf->Cell(30,$lh,'Coverage Type:',0,0,'L');
 	$pdf->SetFont('Times','',10);
 	$pdf->Cell(24);
-	$pdf->Cell(20,5,'Excess Liability',0,0,'L');
+	$pdf->Cell(20,$lh,'Excess Liability',0,0,'L');
 	$pdf->Cell(10);
 	$pdf->SetFont('Times','B',10);
-	$pdf->Cell(20,5,'Policy Type:',0,0,'L');
+	$pdf->Cell(20,$lh,'Policy Type:',0,0,'L');
 	$pdf->Cell(22);
 	$pdf->SetFont('Times','',10);
-	$pdf->Cell(0,5,'Claims Made',0,1,'L');
+	$pdf->Cell(0,$lh,'Claims Made',0,1,'L');
 
 	$pdf->SetFont('Times','B',10);
-	$pdf->Cell(30,5,'Deductible per occurrence:',0,0,'L');
+	$pdf->Cell(30,$lh,'Deductible per occurrence:',0,0,'L');
 	$pdf->SetFont('Times','',10);
 	$pdf->Cell(24);
-	$pdf->Cell(20,5,'$',0,0,'L');
+	$pdf->Cell(20,$lh,'$',0,0,'L');
 	$pdf->Cell(10);
 	$pdf->SetFont('Times','B',10);
-	$pdf->Cell(0,5,'Retroactive Date:',0,1,'L');
+	$pdf->Cell(0,$lh,'Retroactive Date:',0,1,'L');
 
+	$pdf->Cell(30,$lh,'Primary Premium:',0,0,'L');
+	$pdf->SetFont('Times','',10);
+	$pdf->Cell(24);
+	$pdf->Cell(20,$lh,'$',0,0,'L');
+	$pdf->Cell(10);
+	$pdf->SetFont('Times','B',10);
+	$pdf->Cell(0,$lh,'Pending & Prior Litigation Date:',0,1,'L');
+
+	$pdf->Cell(30,$lh,'Subscription Fee:',0,0,'L');
+	$pdf->SetFont('Times','',10);
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh,'$',0,1,'L');
+
+	$pdf->SetFont('Times','B',10);
+	$pdf->Cell(30,$lh,'Total:',0,0,'L');
+	$pdf->SetFont('Times','',10);
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh,'$',0,1,'L');
+	$pdf->Ln(5);
+	
+	$pdf->SetFont('Times','B',10);
+	$pdf->SetFillColor(218,166,0);
+	$pdf->SetTextColor(255,255,255);
+	$pdf->Cell(0,7,'Required Information to Bind',0,1,'L',true);
+	$pdf->Ln(5);
+	$pdf->SetTextColor(0,0,0);
+
+	$pdf->Cell(0,$lh,'The following are due within 30 days of effective date:',0,1,'L');
+
+	$pdf->Cell(32);
+	$pdf->Cell(0,$lh,'Submission of signed Golden application and signed Subscription Agreement',0,1,'L');
+
+	$pdf->Cell(32);
+	$pdf->Cell(0,$lh,'Loss Runs/No Loss Letter',0,1,'L');
+
+	$pdf->Cell(32);
+	$pdf->Cell(0,$lh,'Underlying Dec page form',0,1,'L');
+	$pdf->Ln(5);
+
+	$pdf->SetFont('Times','B',10);
+	$pdf->SetFillColor(218,166,0);
+	$pdf->SetTextColor(255,255,255);
+	$pdf->Cell(0,7,'Payment Terms',0,1,'L',true);
+	$pdf->Ln(5);
+	$pdf->SetTextColor(0,0,0);
+
+	$pdf->Cell(4);
+	$pdf->Cell(0,$lh,'• PAYMENT OF 50% OF PREMIUM, SUBSCRIPTION FEE, AND TAXES IS DUE IN 30 DAYS',0,1,'L');
+
+	$pdf->SetFont('Times','',10);
+	$pdf->Cell(4);
+	$pdf->Cell(0,$lh,'• The remaining 50% is due in 60 days.',0,1,'L');
+
+	$pdf->AddPage();
+
+	// PAGE 2
+
+	$pdf->SetFont('Times','B',10);
+	$pdf->SetFillColor(218,166,0);
+	$pdf->SetTextColor(255,255,255);
+	$pdf->Cell(0,7,'CONDITIONS / EXCLUSIONS',0,1,'L',true);
+	$pdf->Ln(5);
+	$pdf->SetTextColor(0,0,0);
 
 	$pdf->Output('F', get_template_directory().'/insurance/pdfs/insurance-'.$entry['id'].'.pdf');
 }
