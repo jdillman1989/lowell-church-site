@@ -16,8 +16,7 @@ class PDF extends FPDF{
 }
 
 $form_id = 3; // change to new form ID
-add_action('gform_after_submission_'.$form_id, 'gform_create_csv', 10, 2);
-function gform_create_csv($entry, $form){
+function gform_create_csv($entry){
 
 	$underlying_limits = round(intval($entry[16]), 2);
 
@@ -452,26 +451,37 @@ function gform_create_pdf($entry, $calculated_values){
 	$pdf->Output('F', get_template_directory().'/insurance/pdfs/insurance-'.$entry['id'].'.pdf');
 }
 
-// add_filter( 'gform_notification_'.$form_id, 'add_attachments', 10, 3 );
-// function add_attachments( $notification, $form, $entry ) {
-//     if( $notification['name'] != 'User Notification' ) {
-//         $attachment = get_template_directory().'/insurance/csv/insurance-'.$entry['id'].'.csv';
+add_filter( 'gform_notification_'.$form_id, 'add_attachments', 10, 3 );
+function add_attachments( $notification, $form, $entry ) {
+	gform_create_csv($entry);
+    if( $notification['name'] != 'User Notification' ) {
+        $csv_attachment = get_template_directory().'/insurance/csvs/insurance-'.$entry['id'].'.csv';
+        $pdf_attachment = get_template_directory().'/insurance/pdfs/insurance-'.$entry['id'].'.pdf';
+  
+        if (file_exists($csv_attachment) && file_exists($pdf_attachment)) {
+            $notification['attachments'] = rgar( $notification, 'attachments', array() );
+            $notification['attachments'][] = $csv_attachment;
+            $notification['attachments'][] = $pdf_attachment;
+            GFCommon::log_debug( __METHOD__ . '(): file added to attachments list: ' . print_r( $notification['attachments'], 1 ) );
+        } else {
+            GFCommon::log_debug( __METHOD__ . '(): not attaching; file does not exist.' );
+        }
+    }
+    else{
+        $attachment = get_template_directory().'/insurance/pdfs/insurance-'.$entry['id'].'.pdf';
  
-//         GFCommon::log_debug( __METHOD__ . '(): file to be attached: ' . $attachment );
+        GFCommon::log_debug( __METHOD__ . '(): file to be attached: ' . $attachment );
  
-//         if (file_exists($attachment)) {
-//             $notification['attachments'] = rgar( $notification, 'attachments', array() );
-//             $notification['attachments'][] = $attachment;
-//             GFCommon::log_debug( __METHOD__ . '(): file added to attachments list: ' . print_r( $notification['attachments'], 1 ) );
-//         } else {
-//             GFCommon::log_debug( __METHOD__ . '(): not attaching; file does not exist.' );
-//         }
-//     }
-//     else{
-
-//     }
-//     // remove temp file
-//     // array_map('unlink', glob(get_template_directory().'/pdf-forms/flat/*'));
-//     return $notification;
-// }
+        if (file_exists($attachment)) {
+            $notification['attachments'] = rgar( $notification, 'attachments', array() );
+            $notification['attachments'][] = $attachment;
+            GFCommon::log_debug( __METHOD__ . '(): file added to attachments list: ' . print_r( $notification['attachments'], 1 ) );
+        } else {
+            GFCommon::log_debug( __METHOD__ . '(): not attaching; file does not exist.' );
+        }
+    }
+    // remove temp file
+    // array_map('unlink', glob(get_template_directory().'/pdf-forms/flat/*'));
+    return $notification;
+}
 ?>
