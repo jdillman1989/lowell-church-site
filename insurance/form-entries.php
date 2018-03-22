@@ -361,13 +361,93 @@ function gform_create_pdf($entry, $calculated_values){
 	$pdf->SetTextColor(255,255,255);
 	$pdf->Cell(0,7,'Forms/Endorsement Schedule',0,1,'L',true);
 	$pdf->Ln(5);
-	$pdf->SetFont('Times','',9);
+	$pdf->SetFont('Arial','B',9);
 	$pdf->SetTextColor(0,0,0);
 
+	$pdf->Cell(30,$lh - 1,'      FORM NUMBER',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'      DESCRIPTION',0,1,'L');
+	$pdf->SetFont('Arial','',9);
 
+	$pdf->Cell(30,$lh - 1,'EX GL PD 01 0903',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Policy Declarations Page',0,1,'L');
 
+	$pdf->Cell(30,$lh - 1,'Endorsement #1',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Forms Listing',0,1,'L');
 
+	$pdf->Cell(30,$lh - 1,'Policy Form A',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Schedule of Underlying Limits',0,1,'L');
 
+	$pdf->Cell(30,$lh - 1,'GICEXGLDIS2006',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Disclosure Form Claims-Made Policy',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'GICEXGL2006 0100',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Policy Form',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Policy Form B',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Common Policy Conditions',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Policy Form C',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Common Definitions',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Policy Form D',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Common Investigation, Defense & Settlement',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Endorsement #02',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Minimum Earned Premium Endorsement',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Endorsement #03',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Employers Liability Exclusion',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Endorsement #04',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Fungi or Bacteria Exclusion',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Endorsement #05',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Cross Suits Exclusion',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Endorsement #06',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Wrap-Up Exclusion',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Endorsement #07',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Nuclear Energy Exclusion',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Endorsement #08',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Terrorism Exclusion - Certified Acts & All Acts',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Endorsement #09',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Designated Work Exclusion - EIFS',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Endorsement #10',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Terrorism Disclosure Notice',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Endorsement #13',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Earth Movement - Subsidence Exclusion',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Endorsement #19',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Designated Roofing Work',0,1,'L');
+
+	$pdf->Cell(30,$lh - 1,'Endorsement #24',0,0,'L');
+	$pdf->Cell(24);
+	$pdf->Cell(0,$lh - 1,'Exclusion - Designated Services',0,1,'L');
 
 	$pdf->Output('F', get_template_directory().'/insurance/pdfs/insurance-'.$entry['id'].'.pdf');
 }
